@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-
+const security = require("../security/verifier");
 const mysqlConnection = require('../configurations/db-conf');
 
 /*---------------------------------------Estudiantes----------------------------------------*/
 /*Get-Estudiantes*/
-router.get('/estudiantes',(req,res)=>{
+router.get('/estudiantes',security,(req,res)=>{
     console.log('get lista estudiantes')
     mysqlConnection.query('select e.id, e.id_persona, e.fecha_ingreso, e.carnet, p.nombre, p.apellido, p.fecha_nacimiento, p.Direccion, e.status from ul91wq884mhr6noe.estudiante e join ul91wq884mhr6noe.persona p on e.id_persona=p.id;',(err,rows,fields)=>{
         if(!err){
@@ -17,7 +17,7 @@ router.get('/estudiantes',(req,res)=>{
     })
 });
 /*Get-id-Estudiante*/
-router.get('/estudiantes/:id',(req,res)=>{
+router.get('/estudiantes/:id',security,(req,res)=>{
     console.log('get estudiante')
     mysqlConnection.query('select e.id, e.id_persona, e.fecha_ingreso, e.carnet, p.nombre, p.apellido, p.fecha_nacimiento, p.Direccion, e.status from ul91wq884mhr6noe.estudiante e join ul91wq884mhr6noe.persona p on e.id_persona=p.id where e.id = ?;',[req.params.id],(err,rows,fields)=>{
         if(!err){
@@ -29,7 +29,7 @@ router.get('/estudiantes/:id',(req,res)=>{
     })
 });
 /*Insert-Estudiante*/
-router.post('/estudiantes',(req,res)=>{
+router.post('/estudiantes',security,(req,res)=>{
     console.log('Insert estudiantes')
     let emp=req.body;
     console.log(emp);
@@ -46,7 +46,7 @@ router.post('/estudiantes',(req,res)=>{
 });
 
 /*Update-Estudiante*/
-router.put('/estudiantes/:id',(req,res)=>{
+router.put('/estudiantes/:id',security,(req,res)=>{
     console.log('Update estudiantes')
     let emp=req.body;
     mysqlConnection.query('update estudiante set id_persona=?, fecha_ingreso=?, carnet=? where id=?',
@@ -62,7 +62,7 @@ router.put('/estudiantes/:id',(req,res)=>{
 });
 
 /*Delete-Estudiante*/
-router.delete('/estudiantes/:id',(req,res)=>{
+router.delete('/estudiantes/:id',security,(req,res)=>{
     console.log('Delete estudiante')
     mysqlConnection.query('delete from estudiante where id = ?',[req.params.id],(err,result)=>{
         if(!err){

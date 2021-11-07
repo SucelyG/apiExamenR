@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-
+const security = require("../security/verifier");
 const mysqlConnection = require('../configurations/db-conf');
 
 /*---------------------------------------Cursos----------------------------------------*/
 /*Get-Cursos*/
-router.get('/cursos',(req,res)=>{
+router.get('/cursos',security,(req,res)=>{
     console.log('get lista cursos')
     mysqlConnection.query('Select * from curso',(err,rows,fields)=>{
         if(!err){
@@ -17,7 +17,7 @@ router.get('/cursos',(req,res)=>{
     })
 });
 /*Get-id-Cursos*/
-router.get('/cursos/:id',(req,res)=>{
+router.get('/cursos/:id',security,(req,res)=>{
     console.log('get cursos')
     mysqlConnection.query('Select * from curso where id = ?',[req.params.id],(err,rows,fields)=>{
         if(!err){
@@ -29,7 +29,7 @@ router.get('/cursos/:id',(req,res)=>{
     })
 });
 /*Insert-Cursos*/
-router.post('/cursos',(req,res)=>{
+router.post('/cursos',security,(req,res)=>{
     console.log('Insert cursos')
     let emp=req.body;
     console.log(emp);
@@ -46,7 +46,7 @@ router.post('/cursos',(req,res)=>{
 });
 
 /*Update-Cursos*/
-router.put('/cursos/:id',(req,res)=>{
+router.put('/cursos/:id',security,(req,res)=>{
     console.log('Update cursos')
     let emp=req.body;
     mysqlConnection.query('update curso set nombre=?, descripcion=? where id=?',
@@ -62,7 +62,7 @@ router.put('/cursos/:id',(req,res)=>{
 });
 
 /*Delete-Cursos*/
-router.delete('/cursos/:id',(req,res)=>{
+router.delete('/cursos/:id',security,(req,res)=>{
     console.log('Delete cursos')
     mysqlConnection.query('delete from curso where id = ?',[req.params.id],(err,result)=>{
         if(!err){

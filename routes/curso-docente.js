@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-
+const security = require("../security/verifier");
 const mysqlConnection = require('../configurations/db-conf');
 
 /*---------------------------------------Docente Curso----------------------------------------*/
 /*Get-Cursos Docentes*/
-router.get('/docente-curso',(req,res)=>{
+router.get('/docente-curso',security,(req,res)=>{
     console.log('get lista docente-curso')
     mysqlConnection.query('select s.id, s.id_docente, p.nombre as docente, s.id_curso, c.nombre, s.stauts, s.fecha_inicio, s.fecha_fin from ul91wq884mhr6noe.curso_docente s join ul91wq884mhr6noe.docente d on d.id = s.id_docente join ul91wq884mhr6noe.curso c on c.id = s.id_curso join ul91wq884mhr6noe.persona p on p.id = d.id_persona',(err,rows,fields)=>{
         if(!err){
@@ -17,7 +17,7 @@ router.get('/docente-curso',(req,res)=>{
     })
 });
 /*Get-id-Cursos Docentes*/
-router.get('/docente-curso/:id',(req,res)=>{
+router.get('/docente-curso/:id',security,(req,res)=>{
     console.log('get docente-curso')
     mysqlConnection.query('select s.id, s.id_docente, p.nombre as docente, s.id_curso, c.nombre, s.stauts, s.fecha_inicio, s.fecha_fin from ul91wq884mhr6noe.curso_docente s join ul91wq884mhr6noe.docente d on d.id = s.id_docente join ul91wq884mhr6noe.curso c on c.id = s.id_curso join ul91wq884mhr6noe.persona p on p.id = d.id_persona where s.id = ?;',[req.params.id],(err,rows,fields)=>{
         if(!err){
@@ -29,7 +29,7 @@ router.get('/docente-curso/:id',(req,res)=>{
     })
 });
 /*Insert-Cursos Docentes*/
-router.post('/docente-curso',(req,res)=>{
+router.post('/docente-curso',security,(req,res)=>{
     console.log('Insert docente-curso')
     let emp=req.body;
     console.log(emp);
@@ -46,7 +46,7 @@ router.post('/docente-curso',(req,res)=>{
 });
 
 /*Update-Cursos Docentes*/
-router.put('/docente-curso/:id',(req,res)=>{
+router.put('/docente-curso/:id',security,(req,res)=>{
     console.log('Update docente-curso')
     let emp=req.body;
     mysqlConnection.query('update curso_docente set id_docente=?, id_curso=?, stauts=?, fecha_inicio=?, fecha_fin=? where id=?',
@@ -62,7 +62,7 @@ router.put('/docente-curso/:id',(req,res)=>{
 });
 
 /*Delete-Cursos Docentes*/
-router.delete('/docente-curso/:id',(req,res)=>{
+router.delete('/docente-curso/:id',security,(req,res)=>{
     console.log('Delete docente-curso')
     mysqlConnection.query('delete from curso_docente where id = ?',[req.params.id],(err,result)=>{
         if(!err){
