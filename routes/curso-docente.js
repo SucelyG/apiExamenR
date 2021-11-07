@@ -7,7 +7,7 @@ const mysqlConnection = require('../configurations/db-conf');
 /*Get-Cursos Docentes*/
 router.get('/docente-curso',security,(req,res)=>{
     console.log('get lista docente-curso')
-    mysqlConnection.query('select s.id, s.id_docente, p.nombre as docente, s.id_curso, c.nombre, s.stauts, s.fecha_inicio, s.fecha_fin from ul91wq884mhr6noe.curso_docente s join ul91wq884mhr6noe.docente d on d.id = s.id_docente join ul91wq884mhr6noe.curso c on c.id = s.id_curso join ul91wq884mhr6noe.persona p on p.id = d.id_persona',(err,rows,fields)=>{
+    mysqlConnection.query('select s.id, s.id_docente, p.nombre as docente, s.id_curso, c.nombre as curso, s.stauts, s.fecha_inicio, s.fecha_fin from ul91wq884mhr6noe.curso_docente s join ul91wq884mhr6noe.docente d on d.id = s.id_docente join ul91wq884mhr6noe.curso c on c.id = s.id_curso join ul91wq884mhr6noe.persona p on p.id = d.id_persona',(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{
@@ -19,7 +19,7 @@ router.get('/docente-curso',security,(req,res)=>{
 /*Get-id-Cursos Docentes*/
 router.get('/docente-curso/:id',security,(req,res)=>{
     console.log('get docente-curso')
-    mysqlConnection.query('select s.id, s.id_docente, p.nombre as docente, s.id_curso, c.nombre, s.stauts, s.fecha_inicio, s.fecha_fin from ul91wq884mhr6noe.curso_docente s join ul91wq884mhr6noe.docente d on d.id = s.id_docente join ul91wq884mhr6noe.curso c on c.id = s.id_curso join ul91wq884mhr6noe.persona p on p.id = d.id_persona where s.id = ?;',[req.params.id],(err,rows,fields)=>{
+    mysqlConnection.query('select s.id, s.id_docente, p.nombre as docente, s.id_curso, c.nombre as curso, s.stauts, s.fecha_inicio, s.fecha_fin from ul91wq884mhr6noe.curso_docente s join ul91wq884mhr6noe.docente d on d.id = s.id_docente join ul91wq884mhr6noe.curso c on c.id = s.id_curso join ul91wq884mhr6noe.persona p on p.id = d.id_persona where s.id = ?;',[req.params.id],(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{

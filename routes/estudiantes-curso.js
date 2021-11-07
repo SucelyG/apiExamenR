@@ -7,7 +7,7 @@ const mysqlConnection = require('../configurations/db-conf');
 /*Get-Estudiante Curso*/
 router.get('/estudiante-curso',security,(req,res)=>{
     console.log('get lista estudiante curso')
-    mysqlConnection.query('select a.id, a.id_estudiante, p.nombre as estudiante, a.id_curso, c.nombre as curso, a.status, a.fecha_inicio, a.fecha_fin from ul91wq884mhr6noe.estudiante_curso a join ul91wq884mhr6noe.estudiante e on e.id = a.id_estudiante join ul91wq884mhr6noe.curso c on c.id = a.id_curso join ul91wq884mhr6noe.persona p on p.id = e.id_persona;',(err,rows,fields)=>{
+    mysqlConnection.query('select a.id, a.id_estudiante, p.nombre as estudiante, a.id_curso, c.nombre, a.status, a.fecha_inicio, a.fecha_fin from ul91wq884mhr6noe.estudiante_curso a join ul91wq884mhr6noe.estudiante e on e.id = a.id_estudiante join ul91wq884mhr6noe.curso c on c.id = a.id_curso join ul91wq884mhr6noe.persona p on p.id = e.id_persona;',(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{
@@ -19,7 +19,7 @@ router.get('/estudiante-curso',security,(req,res)=>{
 /*Get-id-Estudiante Curso*/
 router.get('/estudiante-curso/:id',security,(req,res)=>{
     console.log('get estudiante curso')
-    mysqlConnection.query('select a.id, a.id_estudiante, p.nombre as estudiante, a.id_curso, c.nombre as curso, a.status, a.fecha_inicio, a.fecha_fin from ul91wq884mhr6noe.estudiante_curso a join ul91wq884mhr6noe.estudiante e on e.id = a.id_estudiante join ul91wq884mhr6noe.curso c on c.id = a.id_curso join ul91wq884mhr6noe.persona p on p.id = e.id_persona where a.id = ?;',[req.params.id],(err,rows,fields)=>{
+    mysqlConnection.query('select a.id, a.id_estudiante, p.nombre as estudiante, a.id_curso, c.nombre, a.status, a.fecha_inicio, a.fecha_fin from ul91wq884mhr6noe.estudiante_curso a join ul91wq884mhr6noe.estudiante e on e.id = a.id_estudiante join ul91wq884mhr6noe.curso c on c.id = a.id_curso join ul91wq884mhr6noe.persona p on p.id = e.id_persona where a.id = ?;',[req.params.id],(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{
