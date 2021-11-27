@@ -8,7 +8,7 @@ router.post("/login", (req, res) => {
     const body = req.body;
     console.log(body.userName);
     let user;           
-
+// mysqlConnection.query("Select * from usuario where nombre = 'Sucely' and contraseña = '123'", body.userName, (err, rows, field) => {
     mysqlConnection.query("Select * from usuario where userName = ?", body.userName, (err, rows, field) => {
         if (!err) {
             user = rows[0];

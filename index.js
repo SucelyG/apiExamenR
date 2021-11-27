@@ -7,14 +7,15 @@ app.use(cors());
 
 app.set('port', process.env.PORT || 3000);
 
-app.use(require('./routes/lista-estudiantes'));
-app.use(require('./routes/personas'));
-app.use(require('./routes/maestros'));
-app.use(require('./routes/estudiantes'));
-app.use(require('./routes/curso'));
-app.use(require('./routes/curso-docente'));
-app.use(require('./routes/estudiantes-curso'));
+app.use(require('./routes/cliente'));
+app.use(require('./routes/dieta'));
+app.use(require('./routes/entrenador'));
+app.use(require('./routes/entrenos'));
+app.use(require('./routes/persona'));
+app.use(require('./routes/progreso'));
+app.use(require('./routes/rutinas'));
 app.use(require('./routes/security'));
+
 
 app.listen(app.get('port'), () => {
     console.log(`Server en puerto ${app.get('port')}`);

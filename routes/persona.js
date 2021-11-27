@@ -3,11 +3,11 @@ const router = express.Router();
 const security = require("../security/verifier");
 const mysqlConnection = require('../configurations/db-conf');
 
-/*---------------------------------------Cursos----------------------------------------*/
-/*Get-Cursos*/
-router.get('/cursos',security,(req,res)=>{
-    console.log('get lista cursos')
-    mysqlConnection.query('Select * from curso',(err,rows,fields)=>{
+/*---------------------------------------PERSONAS------------------------------------------*/
+/*Get-Persona*/
+router.get('/personas',/*security,*/(req,res)=>{
+    console.log('get lista personas')
+    mysqlConnection.query('Select * from gym.persona',(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{
@@ -16,10 +16,10 @@ router.get('/cursos',security,(req,res)=>{
         }
     })
 });
-/*Get-id-Cursos*/
-router.get('/cursos/:id',security,(req,res)=>{
-    console.log('get cursos')
-    mysqlConnection.query('Select * from curso where id = ?',[req.params.id],(err,rows,fields)=>{
+/*Get-id-Persona*/
+router.get('/personas/:id',security,(req,res)=>{
+    console.log('get persona')
+    mysqlConnection.query('Select * from persona where id = ?',[req.params.id],(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{
@@ -28,13 +28,13 @@ router.get('/cursos/:id',security,(req,res)=>{
         }
     })
 });
-/*Insert-Cursos*/
-router.post('/cursos',security,(req,res)=>{
-    console.log('Insert cursos')
+
+router.post('/personas',security,(req,res)=>{
+    console.log('Insert personas')
     let emp=req.body;
     console.log(emp);
-    mysqlConnection.query('insert into curso (nombre, descripcion) values (?,?)',
-    [emp.nombre,emp.descripcion],(err,result)=>{
+    mysqlConnection.query('insert into persona (nombre, Apellido, edad) values (?,?,?)',
+    [emp.nombre,emp.Apellido,emp.edad],(err,result)=>{
         if(!err){
             console.log(result);
             res.status(201).send('created Successfully');
@@ -45,12 +45,12 @@ router.post('/cursos',security,(req,res)=>{
     })
 });
 
-/*Update-Cursos*/
-router.put('/cursos/:id',security,(req,res)=>{
-    console.log('Update cursos')
+/*Update-Persona*/
+router.put('/personas/:id',security,(req,res)=>{
+    console.log('Update personas')
     let emp=req.body;
-    mysqlConnection.query('update curso set nombre=?, descripcion=? where id=?',
-    [emp.nombre,emp.descripcion,req.params.id],(err,result)=>{
+    mysqlConnection.query('update persona set nombre=?, Apellido=?, edad=? where id=?',
+    [emp.nombre,emp.Apellido,emp.edad,req.params.id],(err,result)=>{
         if(!err){
             console.log(result);
             res.status(202).send('Updated Successfully');
@@ -61,10 +61,10 @@ router.put('/cursos/:id',security,(req,res)=>{
     })
 });
 
-/*Delete-Cursos*/
-router.delete('/cursos/:id',security,(req,res)=>{
-    console.log('Delete cursos')
-    mysqlConnection.query('delete from curso where id = ?',[req.params.id],(err,result)=>{
+/*Delete-Persona*/
+router.delete('/personas/:id',security,(req,res)=>{
+    console.log('Delete persona')
+    mysqlConnection.query('delete from persona where id = ?',[req.params.id],(err,result)=>{
         if(!err){
             console.log(result);
             res.status(202).send('Deleted Successfully');
