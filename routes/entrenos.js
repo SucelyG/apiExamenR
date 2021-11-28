@@ -29,7 +29,7 @@ router.get('/entrenos/:id',security,(req,res)=>{
     })
 });
 /*Insert-entrenos*/
-router.post('/estudiantes',security,(req,res)=>{
+router.post('/entrenos',security,(req,res)=>{
     console.log('Insert estudiantes')
     let emp=req.body;
     console.log(emp);
