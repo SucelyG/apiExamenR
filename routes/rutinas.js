@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 
 router.get('/rutinas',security, (req,res)=>{
     console.log('get lista rutinas')
-    mysqlConnection.query('select e.id, e.rutinas, p.lista_rutina from rutinas e join persona p on e.id_persona = p.id;',(err,rows,fields)=>{
+    mysqlConnection.query('Select * from gym.rutinas;',(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{

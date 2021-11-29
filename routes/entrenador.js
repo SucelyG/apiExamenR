@@ -7,7 +7,7 @@ const mysqlConnection = require('../configurations/db-conf');
 /*Get-entrenador*/
 router.get('/entrenador',security,(req,res)=>{
     console.log('get lista entrenador')
-    mysqlConnection.query('select e.id, e.id_persona, p.status from entrenador e join persona p on e.id_persona = p.id;',(err,rows,fields)=>{
+    mysqlConnection.query('Select * from gym.entrenador;',(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{

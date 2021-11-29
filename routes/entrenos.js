@@ -7,7 +7,8 @@ const mysqlConnection = require('../configurations/db-conf');
 /*Get-entreno*/
 router.get('/entrenos',security,(req,res)=>{
     console.log('get entrenos')
-    mysqlConnection.query('select e.id, e.id_persona, p.id_rutinas from entrenos e join persona p on e.id_persona = p.id;',(err,rows,fields)=>{
+            res.send(rows);
+    mysqlConnection.query('SELECT * FROM gym.entrenos;',(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{
@@ -33,7 +34,7 @@ router.post('/entrenos',security,(req,res)=>{
     console.log('Insert estudiantes')
     let emp=req.body;
     console.log(emp);
-    mysqlConnection.query('insert into entrenos (id_persona, id_rutinas) values (?,?,?,?)',
+    mysqlConnection.query('insert into entrenos (id_persona, id_rutinas) values (?,?)',
     [emp.id_persona, emp.id_rutinas], (err, result)=>{
         if(!err){
             console.log(result);

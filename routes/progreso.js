@@ -7,7 +7,7 @@ const mysqlConnection = require('../configurations/db-conf');
 /*Get-progresos*/
 router.get('/progresos',security,(req,res)=>{
     console.log('get progresos')
-    mysqlConnection.query('select e.id, e.id_persona, p.peso_inicial, p.peso_meta, p.talla_inicial, p.talla_meta from progreso e join persona p on e.id_persona = p.id;',(err,rows,fields)=>{
+    mysqlConnection.query('Select * from gym.progreso;',(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{

@@ -7,7 +7,7 @@ const mysqlConnection = require('../configurations/db-conf');
 /*Get-Dietas*/
 router.get('/dieta',security,(req,res)=>{
     console.log('get lista dieta')
-    mysqlConnection.query('select e.id, e.id_persona, p.dietas, p.listado_de_dietas, p.fecha_inicio, p.fecha_fin from dieta e join persona p on e.id_persona = p.id;',(err,rows,fields)=>{
+    mysqlConnection.query('Select * from gym.dieta',(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{
